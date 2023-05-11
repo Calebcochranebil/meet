@@ -21,7 +21,7 @@ const credentials = {
     auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
     redirect_uris: ["https://calebcochranebil.github.io/meet/"],
     javascript_origins: [
-        "https://github.com/Calebcochranebil/meet",
+        "https://calebcochranebil.github.io",
         "http://localhost:3000",
     ],
 };
@@ -142,6 +142,6 @@ module.exports.getCalendarEvents = async (event) => {
 };
 
 //URL endpoints:
-// GET - https://bu80ucml81.execute-api.us-east-2.amazonaws.com/dev/api/get-auth-url
-//   GET - https://bu80ucml81.execute-api.us-east-2.amazonaws.com/dev/api/token/{code}
-//   GET - https://bu80ucml81.execute-api.us-east-2.amazonaws.com/dev/api/get-events/{access_token}
+//   GET - https://q95pvg5k17.execute-api.us-east-2.amazonaws.com/dev/api/get-auth-url
+//   GET - https://q95pvg5k17.execute-api.us-east-2.amazonaws.com/dev/api/token/{code}
+//   GET - https://q95pvg5k17.execute-api.us-east-2.amazonaws.com/dev/api/get-events/{access_token}
