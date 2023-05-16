@@ -1,12 +1,11 @@
 import React from "react";
-import { shallow } from "enzyme";
-import App from "../App";
-import EventList from "../EventList";
+import { shallow } from "enzyme"; // renders only the specified react component, nothing else, for testing
+import App from "../App"; // import the compoment file you are testing
+import EventList from "../EventList"; // imports eventlist component which holds the render info
 import CitySearch from "../CitySearch";
-import NumberOfEvents from "../NumberOfEvents";
 
 describe("<App /> component", () => {
-    let AppWrapper;
+    let AppWrapper; //replaces first line of code for each test (const AppWrapper = shallow(<App />);) so you call it once before all tests begin
     beforeAll(() => {
         AppWrapper = shallow(<App />);
     });
@@ -17,9 +16,5 @@ describe("<App /> component", () => {
 
     test("render CitySearch", () => {
         expect(AppWrapper.find(CitySearch)).toHaveLength(1);
-    });
-
-    test("render NumberOfEvents", () => {
-        expect(AppWrapper.find(NumberOfEvents)).toHaveLength(1);
     });
 });

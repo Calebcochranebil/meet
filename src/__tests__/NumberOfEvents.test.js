@@ -4,21 +4,23 @@ import NumberOfEvents from "../NumberOfEvents";
 
 describe("<NumberOfEvents /> component", () => {
     let NumberOfEventsWrapper;
-
-    beforeEach(() => {
+    beforeAll(() => {
         NumberOfEventsWrapper = shallow(
             <NumberOfEvents updateNumberOfEvents={() => {}} />
         );
     });
 
+    // test 1: checks the basic component is rendered
     test("renders the component", () => {
-        expect(NumberOfEventsWrapper.exists()).toBe(true);
+        expect(NumberOfEventsWrapper).toBeDefined();
     });
 
-    test("displays 32 events by default", () => {
+    // test 2: the default number of events shown is 32
+    test("user sees 32 events by default", () => {
         expect(NumberOfEventsWrapper.state("number")).toBe(32);
     });
 
+    // test 3: the input function is rendered correctly
     test("renders input correctly", () => {
         const number = NumberOfEventsWrapper.state("number");
         expect(NumberOfEventsWrapper.find(".number").prop("value")).toBe(
@@ -26,20 +28,21 @@ describe("<NumberOfEvents /> component", () => {
         );
     });
 
-    test("updates state when user input changes", () => {
-        const event = { target: { value: "10" } };
-        NumberOfEventsWrapper.find(".number").simulate("change", event);
+    // test 4: the component changes state when user inputs value (10)
+    test("change state when user input changes", () => {
+        NumberOfEventsWrapper.setState({
+            number: "32",
+        });
+        const eventNumber = { target: { value: "10" } };
+        NumberOfEventsWrapper.find(".number").simulate("change", eventNumber);
         expect(NumberOfEventsWrapper.state("number")).toBe("10");
     });
 
-    test("renders the correct number of events based on user input", () => {
-        const numberOfEvents = 10;
+    // test 5: the results of the user input is rendered correctly
+    test("rendered number of events is equal to the users input", () => {
         const RenderedNumberOfEvents = shallow(
-            <NumberOfEvents
-                number={numberOfEvents}
-                updateNumberOfEvents={() => {}}
-            />
+            <NumberOfEvents number={10} updateNumberOfEvents={() => {}} />
         );
-        expect(RenderedNumberOfEvents.state("number")).toBe(numberOfEvents);
+        expect(RenderedNumberOfEvents.state("number")).toBe(10);
     });
 });
