@@ -13,17 +13,19 @@ class NumberOfEvents extends Component {
 
     render() {
         return (
-            <div className="NumberOfEvents">
-                <input
-                    id="number-of-events"
-                    type="number"
-                    className="number"
-                    value={this.state.number} //change to eventCount?
-                    onChange={this.handleNumberChange}
-                />
+            <div>
+                <p>Number of Events</p>
+                <div className="NumberOfEvents">
+                    <input
+                        id="number-of-events"
+                        type="number"
+                        className="number"
+                        value={this.state.number} // change to eventCount?
+                        onChange={this.handleNumberChange}
+                    />
+                </div>
             </div>
         );
     }
 }
-
 export default NumberOfEvents;
