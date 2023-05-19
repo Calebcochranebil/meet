@@ -37,7 +37,7 @@ class CitySearch extends Component {
                     onFocus={() => {
                         this.setState({ showSuggestions: true });
                     }}
-                    placeholder="Search"
+                    placeholder="Search for a city"
                 />
                 <ul
                     className="suggestions"
