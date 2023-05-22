@@ -13,19 +13,40 @@ class NumberOfEvents extends Component {
 
     render() {
         return (
-            <div>
-                <p>Number of Events</p>
-                <div className="NumberOfEvents">
-                    <input
-                        id="number-of-events"
-                        type="number"
-                        className="number"
-                        value={this.state.number} // change to eventCount?
-                        onChange={this.handleNumberChange}
-                    />
+            <div
+                className="NumberOfEvents"
+                style={{
+                    position: "fixed",
+                    top: -25,
+                    left: 1350,
+                    right: 0,
+                    backgroundColor: "#f5f5f5",
+                    padding: "10px",
+                    textAlign: "center",
+                    zIndex: 9999,
+                }}
+            >
+                <div style={{ marginBottom: "10px" }}>
+                    <span style={{ fontSize: "18px", fontWeight: "bold" }}>
+                        Number of Events
+                    </span>
                 </div>
+                <input
+                    id="number-of-events"
+                    type="number"
+                    className="number"
+                    value={this.state.number}
+                    onChange={this.handleNumberChange}
+                    style={{
+                        width: "60px",
+                        borderRadius: "4px",
+                        border: "1px solid #ccc",
+                        padding: "4px",
+                    }}
+                />
             </div>
         );
     }
 }
+
 export default NumberOfEvents;
