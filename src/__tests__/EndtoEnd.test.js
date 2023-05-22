@@ -1,22 +1,14 @@
 import puppeteer from "puppeteer";
 
 describe("show/hide an event details", () => {
-    let browser, page;
-    jest.setTimeout(30000);
-
+    let browser;
+    let page;
     beforeAll(async () => {
-        try {
-            browser = await puppeteer.launch({
-                headless: false,
-                slowMo: 250, // slow down by 250ms
-                ignoreDefaultArgs: ["--disable-extensions"],
-            });
-            page = await browser.newPage();
-            await page.goto("http://localhost:3000/meet");
-            await page.waitForSelector(".event");
-        } catch (err) {
-            console.error("Error during setup:", err);
-        }
+        jest.setTimeout(30000);
+        browser = await puppeteer.launch();
+        page = await browser.newPage();
+        await page.goto("http://localhost:3000/");
+        await page.waitForSelector(".event");
     });
 
     afterAll(() => {
