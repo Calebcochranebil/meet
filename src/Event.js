@@ -21,11 +21,13 @@ class Event extends Component {
                 </p>
                 {!collapsed && (
                     <>
-                        <h3 className="about">About event:</h3>
-                        <a className="link" href={event.htmlLink}>
-                            See details on Google Calendar
-                        </a>
-                        <p className="description">{event.description}</p>
+                        <div className="details">
+                            <h3 className="about">About event:</h3>
+                            <a className="link" href={event.htmlLink}>
+                                See details on Google Calendar
+                            </a>
+                            <p className="description">{event.description}</p>
+                        </div>
                     </>
                 )}
                 <button

@@ -20,10 +20,9 @@ defineFeature(feature, (test) => {
             AppWrapper = mount(<App />);
         });
 
-        then(/^the user sees (\d+) events by default$/, (numberOfEvents) => {
+        then("the user sees 32 events by default", () => {
             AppWrapper.update();
             expect(AppWrapper.state("numberOfEvents")).toEqual(32);
-            expect(numberOfEvents).toBe("32");
         });
     });
 
