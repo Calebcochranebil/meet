@@ -18,7 +18,7 @@ class NumberOfEvents extends Component {
                 style={{
                     position: "fixed",
                     top: -25,
-                    left: 1350,
+                    left: 700,
                     right: 0,
                     backgroundColor: "#f5f5f5",
                     padding: "10px",
