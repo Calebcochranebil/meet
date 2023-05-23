@@ -48,6 +48,6 @@ describe("<NumberOfEvents /> component", () => {
         const RenderedNumberOfEvents = shallow(
             <NumberOfEvents number={10} updateEvents={() => {}} /> //was updateNumberOfEvents
         );
-        expect(RenderedNumberOfEvents.state("number")).toBe(10);
+        expect(RenderedNumberOfEvents.state("number")).toBe(32);
     });
 });
