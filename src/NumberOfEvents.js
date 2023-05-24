@@ -27,7 +27,7 @@ class NumberOfEvents extends Component {
                     top: -20,
                     left: 700,
                     right: 0,
-                    backgroundColor: "#f5f5f5",
+                    backgroundColor: "#white",
                     padding: "15px",
                     textAlign: "center",
                     zIndex: 9999,
