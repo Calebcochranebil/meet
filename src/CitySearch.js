@@ -19,7 +19,7 @@ class CitySearch extends Component {
             this.setState({
                 query: value,
                 infoText:
-                    "We can not find the city you are looking for. Please try another city",
+                    "We cannot find the city you are looking for. Please try another city.",
             });
         } else {
             return this.setState({
@@ -43,8 +43,8 @@ class CitySearch extends Component {
 
     render() {
         return (
-            <div className="CitySearch">
-                <h3>Choose A City</h3>
+            <div className="CitySearch" style={{ marginTop: "5px" }}>
+                <h3 style={{ marginBottom: "10px" }}>Choose A City</h3>
                 <input
                     type="text"
                     className="city"
@@ -54,6 +54,13 @@ class CitySearch extends Component {
                         this.setState({ showSuggestions: true });
                     }}
                     placeholder="Search"
+                    style={{
+                        padding: "8px",
+                        borderRadius: "4px",
+                        border: "1px solid #ccc",
+                        width: "100%",
+                        marginBottom: "25px",
+                    }}
                 />
                 <ul
                     className="suggestions"
@@ -65,15 +72,31 @@ class CitySearch extends Component {
                         <li
                             key={suggestion}
                             onClick={() => this.handleItemClicked(suggestion)}
+                            style={{
+                                padding: "8px",
+                                cursor: "pointer",
+                                listStyle: "none",
+                            }}
                         >
                             {suggestion}
                         </li>
                     ))}
-                    <li onClick={() => this.handleItemClicked("all")}>
+                    <li
+                        onClick={() => this.handleItemClicked("all")}
+                        style={{
+                            padding: "8px",
+                            cursor: "pointer",
+                            listStyle: "none",
+                            fontWeight: "bold",
+                        }}
+                    >
                         <b>See all cities</b>
                     </li>
                 </ul>
-                <InfoAlert text={this.state.infoText} />
+                <InfoAlert
+                    text={this.state.infoText}
+                    style={{ marginTop: "110px", marginLeft: "-75px" }}
+                />
             </div>
         );
     }

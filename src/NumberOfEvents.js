@@ -9,12 +9,19 @@ class NumberOfEvents extends Component {
 
     handleNumberChange = (event) => {
         let inputValue = event.target.value;
+
+        // Check if the input is a negative number and set it to 0 if true
+        if (inputValue < 0) {
+            inputValue = 0;
+        }
+
         this.props.updateEvents(null, inputValue);
         this.setState({ number: inputValue });
+
         if (inputValue > 32) {
             this.setState({ errorText: "Select number from 1 to 32" });
         } else {
-            return this.setState({ errorText: "" });
+            this.setState({ errorText: "" });
         }
     };
 
@@ -27,8 +34,8 @@ class NumberOfEvents extends Component {
                     top: -20,
                     left: 700,
                     right: 0,
-                    backgroundColor: "#white",
-                    padding: "15px",
+                    backgroundColor: "#808080",
+                    padding: "20px",
                     textAlign: "center",
                     zIndex: 9999,
                 }}
@@ -52,7 +59,10 @@ class NumberOfEvents extends Component {
                     }}
                 />
                 <div>
-                    <ErrorAlert text={this.state.errorText} />
+                    <ErrorAlert
+                        text={this.state.errorText}
+                        style={{ marginLeft: "-17px", marginTop: "102px" }}
+                    />
                 </div>
             </div>
         );

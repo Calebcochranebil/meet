@@ -9,6 +9,7 @@ class Alert extends Component {
     getStyle = () => {
         return {
             color: this.color,
+            ...this.props.style, // Merge additional custom styles passed as props
         };
     };
 
