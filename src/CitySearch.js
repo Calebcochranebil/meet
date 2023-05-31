@@ -6,6 +6,7 @@ class CitySearch extends Component {
         query: "",
         suggestions: [],
         showSuggestions: undefined,
+        infoText: "",
     };
 
     handleInputChanged = (event) => {
@@ -19,11 +20,10 @@ class CitySearch extends Component {
             this.setState({
                 query: value,
                 infoText:
-                    "We cannot find the city you are looking for. Please try another city.",
+                    "We can not find the city you are looking for. Please try another city",
             });
         } else {
             return this.setState({
-                // else renders user input and list of suggestions, no info alert needed
                 query: value,
                 suggestions,
                 infoText: "",
@@ -36,32 +36,31 @@ class CitySearch extends Component {
             query: suggestion,
             suggestions: [],
             showSuggestions: false,
-            infoText: "", //check
+            infoText: "",
         });
         this.props.updateEvents(suggestion);
     };
 
+    handleBlur = () => {
+        this.setState({ showSuggestions: false });
+    };
+
     render() {
         return (
-            <div className="CitySearch" style={{ marginTop: "5px" }}>
-                <h3 style={{ marginBottom: "10px" }}>Choose A City</h3>
-                <input
-                    type="text"
-                    className="city"
-                    value={this.state.query}
-                    onChange={this.handleInputChanged}
-                    onFocus={() => {
-                        this.setState({ showSuggestions: true });
-                    }}
-                    placeholder="Search"
-                    style={{
-                        padding: "8px",
-                        borderRadius: "4px",
-                        border: "1px solid #ccc",
-                        width: "100%",
-                        marginBottom: "25px",
-                    }}
-                />
+            <div className="CitySearch">
+                <div>
+                    <h3>choose a city:</h3>
+                    <input
+                        type="text"
+                        className="city"
+                        value={this.state.query}
+                        onChange={this.handleInputChanged}
+                        onFocus={() => {
+                            this.setState({ showSuggestions: true });
+                        }}
+                        onBlur={this.handleBlur}
+                    />
+                </div>
                 <ul
                     className="suggestions"
                     style={
@@ -71,32 +70,21 @@ class CitySearch extends Component {
                     {this.state.suggestions.map((suggestion) => (
                         <li
                             key={suggestion}
-                            onClick={() => this.handleItemClicked(suggestion)}
-                            style={{
-                                padding: "8px",
-                                cursor: "pointer",
-                                listStyle: "none",
-                            }}
+                            onMouseDown={() =>
+                                this.handleItemClicked(suggestion)
+                            }
                         >
                             {suggestion}
                         </li>
                     ))}
                     <li
-                        onClick={() => this.handleItemClicked("all")}
-                        style={{
-                            padding: "8px",
-                            cursor: "pointer",
-                            listStyle: "none",
-                            fontWeight: "bold",
-                        }}
+                        key="all"
+                        onMouseDown={() => this.handleItemClicked("all")}
                     >
                         <b>See all cities</b>
                     </li>
                 </ul>
-                <InfoAlert
-                    text={this.state.infoText}
-                    style={{ marginTop: "110px", marginLeft: "-75px" }}
-                />
+                <InfoAlert text={this.state.infoText} />
             </div>
         );
     }

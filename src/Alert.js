@@ -9,13 +9,13 @@ class Alert extends Component {
     getStyle = () => {
         return {
             color: this.color,
-            ...this.props.style, // Merge additional custom styles passed as props
+            textAlign: "center",
         };
     };
 
     render() {
         return (
-            <div className="Alert">
+            <div className="Alert" style={{ textAlign: "center" }}>
                 <p style={this.getStyle()}>{this.props.text}</p>
             </div>
         );
