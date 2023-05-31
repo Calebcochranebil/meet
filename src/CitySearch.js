@@ -49,7 +49,7 @@ class CitySearch extends Component {
         return (
             <div className="CitySearch">
                 <div>
-                    <h3>choose a city:</h3>
+                    <h3>Choose a city</h3>
                     <input
                         type="text"
                         className="city"
