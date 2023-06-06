@@ -1,5 +1,7 @@
 # meetApp
 
+![](meetAppscreenshot.PNG)
+
 ## Overview
 
 meetApp is a test-driven development progressive web app that helps users research, schedule, and attend events in their city. It uses the Google Calendar API and a serverless backend powered by AWS Lambda to retrieve upcoming events and handle access authorization. The app is still under construction.
