@@ -37,7 +37,6 @@ class ErrorAlert extends Alert {
 }
 
 class WarningAlert extends Alert {
-    // defined alert but not using yet
     constructor(props) {
         super(props);
         this.color = "orange";

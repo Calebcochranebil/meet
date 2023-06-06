@@ -8,13 +8,19 @@ class NumberOfEvents extends Component {
     };
 
     handleNumberChange = (event) => {
+        const minValue = 0;
+        const maxValue = 32;
         let inputValue = event.target.value;
+        inputValue = Math.max(
+            Number(minValue),
+            Math.min(Number(maxValue), Number(inputValue))
+        );
         this.props.updateEvents(null, inputValue);
         this.setState({ number: inputValue });
         if (inputValue < 1 || inputValue > 32) {
             this.setState({ errorText: "Select number from 1 to 32" });
         } else {
-            return this.setState({ errorText: "" });
+            this.setState({ errorText: "" });
         }
     };
 
@@ -28,6 +34,7 @@ class NumberOfEvents extends Component {
                     className="number"
                     value={this.state.number}
                     onChange={this.handleNumberChange}
+                    min="0"
                 />
                 <ErrorAlert text={this.state.errorText} />
             </div>

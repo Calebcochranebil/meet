@@ -3,6 +3,7 @@ import "./App.css";
 import EventList from "./EventList";
 import CitySearch from "./CitySearch";
 import NumberOfEvents from "./NumberOfEvents";
+import EventGenre from "./EventGenre";
 import { WarningAlert } from "./Alert";
 import { getEvents, extractLocations, checkToken, getAccessToken } from "./api";
 import "./nprogress.css";
@@ -21,31 +22,36 @@ class App extends Component {
     state = {
         events: [],
         locations: [],
-        seletedLocation: "all",
+        selectedLocation: "all",
         numberOfEvents: 32,
         showWelcomeScreen: undefined,
     };
 
-    // API data for charts
-    getData = () => {
-        const { locations, events } = this.state;
-        const data = locations.map((location) => {
-            const number = events.filter(
-                (event) => event.location === location
-            ).length;
-            const city = location.split(", ").shift();
-            return { city, number };
-        });
-        return data;
-    };
-
     async componentDidMount() {
         this.mounted = true;
+        if (window.location.href.startsWith("http://localhost")) {
+            getEvents().then((events) => {
+                if (this.mounted) {
+                    this.setState({
+                        events,
+                        locations: extractLocations(events),
+                    });
+                }
+            });
+        }
+
+        getEvents().then((events) => {
+            if (this.mounted) {
+                this.setState({ events, locations: extractLocations(events) });
+            }
+        });
+
         const accessToken = localStorage.getItem("access_token");
         const isTokenValid = (await checkToken(accessToken)).error
             ? false
             : true;
         const searchParams = new URLSearchParams(window.location.search);
+
         const code = searchParams.get("code");
         this.setState({ showWelcomeScreen: !(code || isTokenValid) });
         if ((code || isTokenValid) && this.mounted) {
@@ -64,14 +70,28 @@ class App extends Component {
         this.mounted = false;
     }
 
+    // API data for charts
+    getData = () => {
+        const { locations, events } = this.state;
+        const data = locations.map((location) => {
+            const number = events.filter(
+                (event) => event.location === location
+            ).length;
+            const city = location.split(", ").shift();
+            return { city, number };
+        });
+        return data;
+    };
+
     updateNumberOfEvents(number) {
         this.setState({
             numberOfEvents: number,
         });
+        this.updateEvents(this.state.selectedLocation);
     }
 
     updateEvents = (location, inputNumber) => {
-        const { eventCount, seletedLocation } = this.state;
+        const { eventCount, selectedLocation } = this.state;
         if (location) {
             getEvents().then((events) => {
                 const locationEvents =
@@ -81,22 +101,21 @@ class App extends Component {
                 const eventsToShow = locationEvents.slice(0, eventCount);
                 this.setState({
                     events: eventsToShow,
-                    seletedLocation: location,
-                    numberOfEvents: this.state.numberOfEvents,
+                    selectedLocation: location,
                 });
             });
         } else {
             getEvents().then((events) => {
                 const locationEvents =
-                    seletedLocation === "all"
+                    selectedLocation === "all"
                         ? events
                         : events.filter(
-                              (event) => event.location === seletedLocation
+                              (event) => event.location === selectedLocation
                           );
                 const eventsToShow = locationEvents.slice(0, inputNumber);
                 this.setState({
                     events: eventsToShow,
-                    numberOfEvents: inputNumber,
+                    eventCount: inputNumber,
                 });
             });
         }
@@ -125,22 +144,30 @@ class App extends Component {
                     <WarningAlert text={offlineMessage}></WarningAlert>
                 </div>
                 <h4>Events in each city</h4>
-                <ResponsiveContainer height={400}>
-                    <ScatterChart
-                        margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
-                    >
-                        <CartesianGrid />
-                        <XAxis type="category" dataKey="city" name="city" />
-                        <YAxis
-                            type="number"
-                            dataKey="number"
-                            name="number of events"
-                            allowDecimals={false}
-                        />
-                        <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-                        <Scatter data={this.getData()} fill="#8884d8" />
-                    </ScatterChart>
-                </ResponsiveContainer>
+                <div className="data-vis-wrapper">
+                    <EventGenre events={this.state.events} />
+                    <ResponsiveContainer height={400}>
+                        <ScatterChart
+                            margin={{
+                                top: 20,
+                                right: 20,
+                                bottom: 20,
+                                left: 20,
+                            }}
+                        >
+                            <CartesianGrid />
+                            <XAxis type="category" dataKey="city" name="city" />
+                            <YAxis
+                                type="number"
+                                dataKey="number"
+                                name="number of events"
+                                allowDecimals={false}
+                            />
+                            <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+                            <Scatter data={this.getData()} fill="#8884d8" />
+                        </ScatterChart>
+                    </ResponsiveContainer>
+                </div>
                 <EventList events={this.state.events} />
                 <WelcomeScreen
                     showWelcomeScreen={this.state.showWelcomeScreen}
